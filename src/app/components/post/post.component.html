@@ -1,5 +1,5 @@
+<app-filter></app-filter>
 <div style="padding: 50px;">
-    <h1 class="text-center">Discussion!</h1>
     <table class="table table-hover">
         <thead class="table.danger">
             <tr>
@@ -8,15 +8,17 @@
                 <th scope="col">Description</th>
             </tr>
         </thead>
-        <tbody>
+
             @for (item of postList; track $index) {<tr>
                 <th class="row">{{ item.id }}</th>
                 <td>{{ item.name }}</td>
                 <td>{{ item.description }}</td>
-                
+                <td>
+                    <button (click)="delPost(4)">Delete</button>
+                </td>                
                 </tr>
                   }
-        </tbody>
+
     </table>
 </div>
-
+<app-form></app-form>
