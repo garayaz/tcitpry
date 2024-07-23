@@ -1,5 +1,20 @@
-<form (ngSubmit)="onAddPost($event)">
-    <table><tr><th><label for="id">ID:</label>
-        <input type="text" id="id" [(ngModel)]="newPost.id" name="id"></th><th><label for="name">Name:</label>
-            <input type="text" id="name" [(ngModel)]="newPost.name" name="name"></th><th><label for="description">Description:</label>
-                <input type="text" id="description" [(ngModel)]="newPost.description" name="description"></th><th><button type="submit" class="btn btn-primary">Add</button></th></tr></table>
+<div class="container">
+    <form (ngSubmit)="onAddPost($event)">
+        <div class="form-group">
+        <table>
+            <tr>
+                <th><label for="id">ID:</label>
+                    <input type="text" id="id" [(ngModel)]="newPost.id" name="id">
+                </th>
+                <th><label for="name">Name:</label>
+                    <input type="text" id="name" [(ngModel)]="newPost.name" name="name">
+                </th>
+                <th><label for="description">Description:</label>
+                    <input type="text" id="description" [(ngModel)]="newPost.description" name="description">
+                </th>
+                <th><button type="submit" class="btn btn-primary">Add</button></th>
+            </tr>
+        </table>
+    </div>
+    </form>
+</div>

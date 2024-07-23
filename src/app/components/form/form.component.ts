@@ -2,7 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { PostInterface } from '../../interfaces/post.interface';
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../../services/post.service';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { routes } from '../../app.routes';
 
 @Component({
   selector: 'app-form',
@@ -14,9 +15,12 @@ import { FormsModule } from '@angular/forms';
 
 
 export class FormComponent {
+
+  form!: FormGroup;
   postList:PostInterface[]=[];
   newPost: PostInterface = { id: 0, name: '', description: '' };
   @Output() nuevoPost = new EventEmitter<boolean>();
+
   constructor(
     private postComponent: PostComponent,
     private postService: PostService
@@ -31,15 +35,33 @@ onAddPost(event: Event) {
     name: this.newPost.name,
     description: this.newPost.description
   };
-
-  this.postService.createPost(postData).subscribe((createdPost) => {
-    this.postList.push(createdPost);
+  
+  this.postService.createPost(postData).subscribe((post) => {
+    this.postList.push(post);
     this.newPost = { id: 0, name: '', description: '' };
     this.nuevoPost.emit(true);
   }, (error) => {
     console.error('ERROR AL CREAR POST:', error);
-    // Aquí puedes manejar el error de una manera más apropiada,
-    // como mostrar un mensaje de error al usuario
+
+    
   });
 }
+
+ngOnInit(): void {
+  this.form = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    body: new FormControl('', Validators.required)
+  });
+}
+
+get f(){
+  return this.form.controls;
+}
+
+submit(){
+  this.postService.create(this.newPost).subscribe((res:any) => {
+       console.log('Post created successfully!');
+  })
+}
+
 }
